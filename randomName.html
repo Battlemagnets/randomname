@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ddd;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            text-align: center;
+        }
+        #fileInput {
+            display: inline;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            padding-top: 60px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            text-align: center;
+            width: 400px;
+            height: 120px;
+            font-size: 40px;
+            margin: 0 auto;
+        }
+        #drop_zone {
+            border: 2px dashed #007BFF;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            margin: 20px;
+        }
+        .filetime{
+            width: 300px;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .time{
+            width: 20px;
+        }
+        #fileInput{
+            width: 150px;
+        }
+        .click{
+            width: 100px;
+            height: 30px;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            background-color: #fff;
+            text-align: center;
+            padding-top: 10px;
+            color: #0056b3;
+            float: right;
+            margin-top: -530px;
+            margin-right: -20px;
+            font-size: 15px;
+        }
+        .click:hover{
+            color: red;
+        }
+        .Afterclicking{
+            float: right;
+            width: 80%;
+            height: 900px;
+            border: 1px black ;
+            /* display: none; */
+            background-color: #eee;
+            margin-top: -600px;
+            margin-right: -20px;
+            position: relative;
+            z-index: 10;
+            border: 1px #aaa solid;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            display: none;
+            white-space: nowrap;
+        }
+        .Afterclicking p{
+            margin-left: 30px;
+            font-size: 30px;
+            width: 30px;
+            height: 30px;
+        }
+        .Afterclicking p:hover{
+            color: red;
+        }
+        /* .click:active{
+            .Afterclicking{
+                display: block;
+            }
+        } */
+        @keyframes getanimation
+        {
+            from {width: 0;}
+            to {width: 80%;}
+        }
+        @keyframes closeanimation
+        {
+            from {width: 80%}
+            to {
+                width: 0;
+                display: none;
+            }
+        }
+        .name{
+            width: 300px;
+            height: 20px;
+            margin: 0 auto;
+        }        
+        .symbol{
+            width: 300px;
+            height: 60px;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+        .symbol input{
+            width: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>RandomName</h1>
+    <p>随机名字生成器</p>
+    <!-- <p>↓把文件拖到此处</p> -->
+    <!-- 文件输入框 -->
+    <div id="drop_zone">把文件拖到此处</div>
+    <div class="filetime">
+        <input type="file" id="fileInput" />
+        <input type="text" class="time" value="3">抽取时间/s
+    </div>
+    <button onclick="getRandomName()">抽取</button>
+    <!-- 显示文件内容的区域 -->
+    <pre id="output"></pre>
+    <p>没有文件不知道怎么办，右上角生成文件</p>
+    <div class="click" onclick="getNameFile()">>生成文本</div>
+    <div class="Afterclicking">
+        <p class="close" onclick="closeNameFile()">></p>
+        <div><h1>获取随机名字文本</h1></div>
+        
+        <div class="name">
+            <input type="text"  name="name">所有名字
+        </div>
+        <div class="symbol">
+            <input type="text"  name="symbol" >分隔符
+            <button onclick="getFile()">生成</button>
+        </div>
+    </div>
+    <script>
+        // 添加文件选择事件监听器
+        const dropZone = document.getElementById('drop_zone');
+        let nameNewArr = []
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+        //点击获取随机名字函数
+
+            // 获取用户选择的文件
+            const file = event.target.files[0];
+            if (file) {
+                // 创建 FileReader 实例
+                const reader = new FileReader();
+                
+                // 读取文件内容
+                reader.onload = function(e) {
+                    // 获取文件内容
+                    const content = e.target.result;
+                    // 将内容按行分割
+                    const lines = content.split('\n');
+                    // 获取输出区域
+                    const output = document.getElementById('output');
+                    
+                    // 显示文件内容
+                    // output.textContent = lines.join('\n');
+                    //定义数组
+                    let nameArr = []
+                    let lineWhile = lines.join('\n');
+                    nameNewArr = lineWhile.split('\r\n')
+                    console.log(nameNewArr);
+
+                    // getRandomName()
+                    // function reget(){
+                    //     let random = Math.floor(Math.random() * nameNewArr.length)
+                    //     output
+                    // }
+                };
+
+                    
+                // 以文本格式读取文件
+                reader.readAsText(file);
+            }
+        });
+
+                        
+
+                        
+        
+                // 获取拖放区域和输出区域的元素
+        const output = document.getElementById('output');
+
+        // 当文件被拖到拖放区域时，防止默认行为并改变背景颜色
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = '#e0e0e0';
+        });
+
+        // 当文件离开拖放区域时，恢复背景颜色
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '';
+        });
+
+        // 当文件被放入拖放区域时，读取文件内容并显示
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.style.backgroundColor = '';
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                const reader = new FileReader();
+
+                // 当文件读取完成时，将内容显示在输出区域
+                reader.onload = (e) => {
+                    // output.textContent = e.target.result;                
+                    
+                    // let objarr = {
+                    //     Arr : nameNewArr
+                    // }
+                    let lineWhile2 = e.target.result;
+                    nameNewArr = lineWhile2.split('\r\n')
+                    console.log(nameNewArr);
+                    let random = Math.floor(Math.random() * nameNewArr.length)
+                        output.textContent = "请稍等一会"
+                        //停滞1000ms输出结果
+                        setTimeout(() => {
+                            output.textContent = nameNewArr[random]
+                        }, 2000);
+                };
+
+
+                // 以文本形式读取文件
+                reader.readAsText(file);
+            }
+        });
+
+        function getRandomName(){
+
+                           
+                            const time = document.querySelector('.time')
+                            
+                            let random = Math.floor(Math.random() * nameNewArr.length)
+                            if (nameNewArr.length < 0) {
+                                alert("请置入文件或你的文件没有任何内容")
+                            }else{
+                                output.textContent = "请稍等一会"
+                            //停滞1000ms输出结果
+                            setTimeout(() => {
+                                output.textContent = nameNewArr[random]
+                            }, time.value * 1000);
+                            }
+
+        }
+        function getNameFile(){
+            const click = document.querySelector('.click')
+            const Afterclicking = document.querySelector('.Afterclicking')
+            Afterclicking.style.animation = "getanimation 1s"
+            Afterclicking.style.display = "block"
+            
+        }
+        function closeNameFile(){
+            const click = document.querySelector('.click')
+            const Afterclicking = document.querySelector('.Afterclicking')
+            const close = document.querySelector('.close')
+            
+            Afterclicking.style.animation = "closeanimation 1s"
+            setTimeout(() => {
+                Afterclicking.style.display = "none"
+            }, 1000);
+            
+        }
+        function getFile(){
+            const nameText = document.querySelector('input[name="name"]').value;
+            const symbol = document.querySelector('input[name="symbol"]').value;
+            let arrName = []
+            arrName = nameText.split(symbol)
+            console.log(arrName);
+            console.log(nameText);
+            console.log(symbol);
+            function downloadFile(filename, text) {
+            // 创建一个Blob实例，内容类型为纯文本
+            var blob = new Blob([text], { type: 'text/plain' });
+            
+            // 创建一个指向Blob对象的URL
+            var url = URL.createObjectURL(blob);
+            
+            // 创建一个a标签
+            var a = document.createElement("a");
+            
+            // 设置a标签属性
+            a.href = url;
+            a.download = filename;
+            
+            // 模拟a标签点击，触发下载
+            document.body.appendChild(a);
+            a.click();
+            
+            // 清理临时DOM和对象URL
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            }
+            let textName = ""
+            for (i = 0 ; i < arrName.length;i++){
+                console.log(arrName[i]);
+                textName += arrName[i]+"\r\n"
+            }
+            downloadFile('name.txt', textName);
+        }
+
+    </script>
+</body>
+</html>
