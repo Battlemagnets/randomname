@@ -3,3 +3,4 @@
 ![image](https://github.com/Battlemagnets/111/blob/main/doc.png)  
 还可以自动生成名字文本  
 ![image](https://github.com/Battlemagnets/111/blob/main/getfile.png)  
+图上有黄点是因为记号笔点到了
